@@ -1,26 +1,35 @@
-{% set installs = salt['pillar.get']('nvm:install', ['0.10']) %}
+{% for name, user in pillar.get('zsh', {}).items() %}
+{%- if user == None -%}
+{%- set user = {} -%}
+{%- endif -%}
+{%- set home = user.get('home', "/home/%s" % name) -%}
+{%- set installs = user.get('installs', ['0.10']) %}
 
-nvm:
+nvm_{{ name }}:
   git.latest:
     - name: git://github.com/creationix/nvm
-    - target: /usr/local/nvm
+    - target: {{ home }}/.nvm
   file.directory:
-    - name: /usr/local/nvm
+    - name: {{ home }}/.nvm
     - dir_mode: 755
     - file_mode: 644
+    - user: {{ name }}
+    - group: {{ name }}
     - recurse:
       - mode
+      - user
+      - group
     - require:
-      - git: nvm
+      - git: nvm_{{ name }}
   cmd.run:
     - name: |
-        source /usr/local/nvm/nvm.sh;
+        source {{ home }}/.nvm/nvm.sh;
         {%- for version in installs %}
         nvm install {{ version }};
         {%- endfor %}
     - shell: "/bin/bash"
     - require:
-      - file: nvm
+      - file: nvm_{{ name }}
       - pkg: nvm_deps
 
 nvm_deps:
@@ -29,3 +38,5 @@ nvm_deps:
       - build-essential
       - libssl-dev
       - curl
+
+{% endfor %}

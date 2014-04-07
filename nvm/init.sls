@@ -11,12 +11,9 @@ nvm_{{ name }}:
     - target: {{ home }}/.nvm
   file.directory:
     - name: {{ home }}/.nvm
-    - dir_mode: 755
-    - file_mode: 644
     - user: {{ name }}
     - group: {{ name }}
     - recurse:
-      - mode
       - user
       - group
     - require:

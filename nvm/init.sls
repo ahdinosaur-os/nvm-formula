@@ -3,7 +3,7 @@
 {%- set user = {} -%}
 {%- endif -%}
 {%- set home = user.get('home', "/home/%s" % name) -%}
-{%- set installs = user.get('installs', ['0.10']) %}
+{%- set installs = user.get('install', ['0.10']) %}
 
 nvm_{{ name }}:
   git.latest:
@@ -21,6 +21,7 @@ nvm_{{ name }}:
       - group
     - require:
       - git: nvm_{{ name }}
+      - cmd: nvm_{{ name }}
   cmd.run:
     - name: |
         source {{ home }}/.nvm/nvm.sh;
@@ -29,7 +30,6 @@ nvm_{{ name }}:
         {%- endfor %}
     - shell: "/bin/bash"
     - require:
-      - file: nvm_{{ name }}
       - pkg: nvm_deps
 
 nvm_deps:

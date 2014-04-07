@@ -18,6 +18,7 @@ nvm:
         {%- for version in installs %}
         nvm install {{ version }};
         {%- endfor %}
+    - shell: "/bin/bash"
     - require:
       - file: nvm
       - pkg: nvm_deps

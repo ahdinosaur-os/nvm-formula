@@ -14,9 +14,9 @@ nvm:
       - git: nvm
   cmd.run:
     - name: |
-        source /usr/local/nvm/nvm.sh
+        source /usr/local/nvm/nvm.sh;
         {%- for version in installs %}
-        nvm install {{ version }}
+        nvm install {{ version }};
         {%- endfor %}
     - require:
       - file: nvm

@@ -1,6 +1,5 @@
 nvm:
   michael:
-    home: /home/michael
     install:
       - "0.8"
       - "0.10"

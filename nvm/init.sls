@@ -34,8 +34,8 @@ nvm_{{ name }}:
         source {{ home }}/.nvm/nvm.sh;
         {%- for version in installs %}
         nvm install {{ version }};
-        nvm alias default {{ default }};
         {%- endfor %}
+        nvm alias default {{ default }};
     - shell: "/bin/bash"
     - require:
       - pkg: nvm_deps

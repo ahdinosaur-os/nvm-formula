@@ -34,6 +34,7 @@ nvm_{{ name }}:
         source {{ home }}/.nvm/nvm.sh;
         {%- for version in installs %}
         nvm install {{ version }};
+        nvm alias default {{ default }};
         {%- endfor %}
     - shell: "/bin/bash"
     - require:

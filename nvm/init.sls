@@ -12,6 +12,7 @@
 {%- endif %}
 
 {%- set installs = config.get('install', ['0.10']) %}
+{%- set default = config.get('install', '0.10') %}
 
 nvm_{{ name }}:
   git.latest:

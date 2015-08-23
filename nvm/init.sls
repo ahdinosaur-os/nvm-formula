@@ -1,4 +1,4 @@
-{% for name, config in pillar.get('zsh', {}).items() %}
+{% for name, config in pillar.get('nvm', {}).items() %}
 {%- if config == None -%}
 {%- set config = {} -%}
 {%- endif -%}
@@ -12,7 +12,7 @@
 {%- endif %}
 
 {%- set installs = config.get('install', ['0.10']) %}
-{%- set default = config.get('install', '0.10') %}
+{%- set default = config.get('default', '0.10') %}
 
 nvm_{{ name }}:
   git.latest:

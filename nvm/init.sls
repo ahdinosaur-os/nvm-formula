@@ -28,8 +28,8 @@ nvm_{{ name }}:
     - require:
       - git: nvm_{{ name }}
       - cmd: nvm_{{ name }}
-      - group: {{ name }}_user
-      - user: {{ name }}_user
+      - group: users_{{ name }}_user
+      - user: users_{{ name }}_user
   cmd.run:
     - name: |
         source {{ home }}/.nvm/nvm.sh;
